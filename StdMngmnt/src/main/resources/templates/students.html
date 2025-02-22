@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Students</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+
+<h2>Student List</h2>
+
+<!-- Show "Add Student" button only for ADMIN users -->
+<th:block sec:authorize="hasAuthority('ADMIN')">
+    <a th:href="@{/students/add}">Add Student</a>
+</th:block>
+
+<p>Logged in as: <span th:text="${#authentication.name}"></span></p>
+<p>Your roles: <span th:text="${#authentication.authorities}"></span></p>
+<!-- Logout Button -->
+<form th:action="@{/logout}" method="post">
+    <button type="submit">Logout</button>
+</form>
+
+<table border="1">
+    <tr>
+        <th>ID</th>
+        <th>Name</th>
+        <th>Email</th>
+        <th>Phone</th>
+    </tr>
+    <tr th:each="student : ${students}">
+        <td th:text="${student.id}"></td>
+        <td th:text="${student.name}"></td>
+        <td th:text="${student.email}"></td>
+        <td th:text="${student.phone}"></td>
+    </tr>
+</table>
+
+</body>
+</html>

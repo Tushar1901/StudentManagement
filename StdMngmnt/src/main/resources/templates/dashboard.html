@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Dashboard</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+<h1>Dashboard</h1>
+<p th:text="${message}"></p>
+<a th:href="@{/students/view}">Students List</a> <br>
+
+
+<th:block sec:authorize="hasAuthority('ADMIN')">
+    <a th:href="@{/fees}">Fees</a>
+</th:block>
+
+
+<!-- Logout Button -->
+<form th:action="@{/logout}" method="post">
+    <button type="submit">Logout</button>
+</form>
+
+
+<th:block sec:authorize="hasAuthority('ADMIN')">
+    <a th:href="@{/users/add}">Add New User</a>
+</th:block>
+
+
+</body>
+</html>

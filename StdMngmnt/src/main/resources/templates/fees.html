@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Fees</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+<h2>Fee Records</h2>
+<table>
+    <tr>
+        <th>ID</th>
+        <th>Student Name</th>
+        <th>Amount</th>
+        <th>Status</th>
+    </tr>
+    <tr th:each="fee : ${fees}">
+        <td th:text="${fee.id}"></td>
+        <td th:text="${fee.student.name}"></td>
+        <td th:text="${fee.amount}"></td>
+        <td th:text="${fee.status}"></td>
+    </tr>
+
+    <a th:href="@{/students/view}">Students List</a> <br>
+
+    <form th:action="@{/logout}" method="post">
+            <button type="submit">Logout</button>
+    </form>
+</table>
+</body>
+</html>
