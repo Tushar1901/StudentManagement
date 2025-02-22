@@ -19,6 +19,17 @@ public class Student {
     @Column(name = "phone", nullable = false)
     private String phone;
 
+    @Column(name = "address", nullable = false)
+    private String address;
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
     public String getPhone() {
         return phone;
     }
