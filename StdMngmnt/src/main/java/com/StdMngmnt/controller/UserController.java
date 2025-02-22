@@ -11,8 +11,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-    @Controller
+@Controller
     @RequestMapping("/users")
     public class UserController {
 
@@ -29,14 +30,15 @@ import org.springframework.web.bind.annotation.RequestMapping;
         }
 
         @PostMapping("/save")
-        public String saveUser(@ModelAttribute UserDTO userDTO) {
+        public String saveUser(@ModelAttribute("user") UserDTO userDTO, RedirectAttributes redirectAttributes) {
             User user = new User();
             user.setUsername(userDTO.getUsername());
             user.setPassword(passwordEncoder.encode(userDTO.getPassword())); // Encrypt password
             user.setRole(userDTO.getRole());
 
             userService.saveUser(user);
-            return "redirect:/users/list"; // Redirect to user list
+            redirectAttributes.addFlashAttribute("msg", "New user has been successfully added!");
+            return "redirect:/users/add"; // Redirect to user list
         }
     }
 
