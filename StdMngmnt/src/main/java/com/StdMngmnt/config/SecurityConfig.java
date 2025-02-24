@@ -22,8 +22,9 @@ public class SecurityConfig {
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http.authorizeHttpRequests(auth -> auth
                         .requestMatchers("/", "/auth/login", "/css/**", "/students/view").permitAll()
-                        .requestMatchers("/students/add", "/students/save", "/fees", "/users/add", "/users/save").hasAuthority("ADMIN")
+                        .requestMatchers("/students/add", "/students/save", "/fees", "/users/add", "/users/save","/students/update/**","/students/delete/**").hasAuthority("ADMIN")
                         .anyRequest().authenticated())
+                .csrf(csrf -> csrf.disable()) // 🚨 TEMPORARY: Disable CSRF (2️⃣ CSRF Protection → Spring Security blocks POST requests without a CSRF token)
                 .formLogin(login -> login
                         .loginPage("/auth/login")
                         .defaultSuccessUrl("/dashboard", true)
