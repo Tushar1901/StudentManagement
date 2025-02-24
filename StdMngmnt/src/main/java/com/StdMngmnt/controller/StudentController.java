@@ -72,7 +72,7 @@ public class StudentController {
     @PreAuthorize("hasAuthority('ADMIN')") // ✅ Only ADMIN can update students
     public String deleteStudent(@PathVariable Long id, Model model) {
 
-        studentService.deleteStudent(id); //// Calls service to delete student
+        studentService.deleteStudent(id); // Calls service to delete student
         model.addAttribute("students", studentService.getAllStudents());
         return "students"; // Redirect back to student list
     }
