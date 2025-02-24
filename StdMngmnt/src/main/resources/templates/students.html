@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
     <title>Students</title>
     <link rel="stylesheet" th:href="@{/css/style.css}">
@@ -27,6 +28,8 @@
         <th>Email</th>
         <th>Phone</th>
         <th>Address</th>
+        <th  sec:authorize="hasAuthority('ADMIN')">Update Student</th>
+        <th  sec:authorize="hasAuthority('ADMIN')">Delete Student</th>
     </tr>
     <tr th:each="student : ${students}">
         <td th:text="${student.id}"></td>
@@ -34,6 +37,18 @@
         <td th:text="${student.email}"></td>
         <td th:text="${student.phone}"></td>
         <td th:text="${student.address}"></td>
+        <td sec:authorize="hasAuthority('ADMIN')">
+            <form th:action="@{/students/update}" method="get">
+                <input type="hidden" name="id" th:value="${student.id}">
+                <button type="submit">Update</button>
+            </form>
+        </td>
+        <td sec:authorize="hasAuthority('ADMIN')">
+            <form th:action="@{/students/delete/{id}(id=${student.id})}" method="post">
+                <input type="hidden" name="_method" value="DELETE">
+                <button type="submit">Delete</button>
+            </form>
+        </td>
     </tr>
 </table>
 
