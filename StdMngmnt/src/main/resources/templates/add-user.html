@@ -2,6 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <title>Add User</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
 </head>
 <body>
 <h2>Add New User</h2>
@@ -9,7 +10,10 @@
 <div th:if="${msg}" style="color: green; font-weight: bold;">
     <p th:text="${msg}"></p>
 </div>
-
+<!-- Logout Button -->
+<form th:action="@{/logout}" method="post">
+    <button type="submit">Logout</button>
+</form>
 <form th:action="@{/users/save}" method="post" th:object="${user}">
     <label>Username: <input type="text" th:field="*{username}" required></label><br>
     <label>Password: <input type="password" th:field="*{password}" required></label><br>
@@ -19,11 +23,8 @@
             <option value="ADMIN">Admin</option>
         </select>
     </label><br>
+    <br>
     <button type="submit">Save User</button>
-</form>
-<!-- Logout Button -->
-<form th:action="@{/logout}" method="post">
-    <button type="submit">Logout</button>
 </form>
 
 </body>
