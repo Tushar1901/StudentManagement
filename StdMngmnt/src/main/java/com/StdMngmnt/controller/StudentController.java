@@ -2,6 +2,8 @@ package com.StdMngmnt.controller;
 
 import com.StdMngmnt.entity.Student;
 import com.StdMngmnt.service.StudentService;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -13,12 +15,14 @@ import java.security.Principal;
 
 @Controller
 @RequestMapping("/students") // ✅ Controller mapped to /students URL prefix  // ✅ Add pre-fix for URL mapping
+@Tag(name = "Student Management", description = "APIs for managing students")
 //@PreAuthorize("hasAuthority('USER')") // ✅ Only USER can access this controller  // ✅ Add authorization for access control  // ✅ Add pre-fix for authorization control
 public class StudentController {
 
     @Autowired
     private StudentService studentService;
     @GetMapping("/view")
+    @Operation(summary = "Get all students", description = "Fetches a list of all students")
     // @PreAuthorize("hasAuthority('USER')")
     public String listStudents(Model model) {
         model.addAttribute("students", studentService.getAllStudents());
@@ -27,6 +31,7 @@ public class StudentController {
 
     @GetMapping("/add")
     @PreAuthorize("hasAuthority('ADMIN')") // ✅ Only ADMIN can access
+    @Operation(summary = "Add a new student", description = "Creates a new student record")
     public String showAddStudentForm(Model model) {
         model.addAttribute("student", new Student());
         return "add-student";

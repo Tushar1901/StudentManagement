@@ -21,7 +21,7 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http.authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/", "/auth/login", "/css/**", "/students/view").permitAll()
+                        .requestMatchers("/", "/auth/login", "/css/**", "/students/view","/swagger-ui.html","/swagger-ui/**", "/v3/api-docs/**").permitAll()
                         .requestMatchers("/students/add", "/students/save", "/fees", "/users/add", "/users/save","/students/update/**","/students/delete/**").hasAuthority("ADMIN")
                         .anyRequest().authenticated())
                 .csrf(csrf -> csrf.disable()) // 🚨 TEMPORARY: Disable CSRF (2️⃣ CSRF Protection → Spring Security blocks POST requests without a CSRF token)
